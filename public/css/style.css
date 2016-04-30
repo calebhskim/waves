@@ -1,0 +1,10 @@
+body {
+  background: #424256;
+}
+
+#percentage {
+  margin: 20px;
+  width: 450px;
+  height: 450px;
+  position: relative;
+}
