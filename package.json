@@ -2,7 +2,7 @@
   "name": "waves",
   "version": "1.0.0",
   "description": "Matching platform leveraging Spotify's web API.",
-  "main": "server.js",
+  "main": "index.js",
   "engines": {
       "node": "5.9.1"
   },
