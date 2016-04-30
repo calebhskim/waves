@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/calebhskim/waves#readme",
   "dependencies": {
-    "express": "^4.13.4",
     "spotify-web-api-node": "^2.3.0"
   }
 }
