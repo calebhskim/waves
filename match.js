@@ -1,12 +1,25 @@
-var SpotifyWebApi = require('spotify-web-api-node');
+var jsonfile = require('jsonfile');
+
+l_tracks = jsonfile.readFileSync('lukas_tracks.json');
+l_artists = jsonfile.readFileSync('lukas_artists.json');
+c_tracks = jsonfile.readFileSync('caleb_tracks.json');
+c_artists = jsonfile.readFileSync('caleb_artists.json');
+
+console.log(l_tracks);
 
 
-var spotifyApi = new SpotifyWebApi({
-  clientId : 'c2674de31ff64b34a165298139a5ddfb',
-  clientSecret : 'c4294447a0f349a0bdeceb70e7489000',
-  redirectUri : 'http://www.example.com/callback'
+match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
+
+
+    // you parse the stuff in here
+
+
+    callback() // you put the percentage in here when youre done
+}
+
+
+// testing!
+match(l_tracks, l_artists, c_tracks, c_artists, function(res) {
+    console.log(res);
 });
 
-
-//match = function(userid1, auth1, userid2, auth2, callback) {
-//};
