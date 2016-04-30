@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Matching platform leveraging Spotify's web API.",
   "main": "server.js",
-  "enginer": {
+  "engines": {
       "node": "5.9.1"
   },
   "scripts": {
