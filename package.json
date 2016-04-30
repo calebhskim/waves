@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Matching platform leveraging Spotify's web API.",
   "main": "server.js",
+  "enginer": {
+      "node": "5.9.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
