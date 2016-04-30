@@ -1,0 +1,23 @@
+{
+  "name": "waves",
+  "version": "1.0.0",
+  "description": "Matching platform leveraging Spotify's web API.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/calebhskim/waves.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/calebhskim/waves/issues"
+  },
+  "homepage": "https://github.com/calebhskim/waves#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
