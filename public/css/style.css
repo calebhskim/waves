@@ -54,10 +54,11 @@ h1 {
 
 .login {
 	position: relative;
+	display: block;
+	margin: 0 auto;
 	padding: 10px;
 	background-color: #acf962;
 	width: 210px;
-	margin: 0 auto;
 	text-align: center;
 	border-radius: 50px;
 	text-transform: uppercase;
@@ -68,4 +69,23 @@ h1 {
 	top: 50%;
 	transform: translateY(-60%);
 	-webkit-transform: translateY(-60%);
+}
+
+.user a {
+	color: #2b2b2b;
+}
+
+.user h2 {
+	font-size: 2em;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 2px;
+	color: #acf962;
+	display: none;
+}
+
+.user img {
+	margin: 0 auto;
+	display: none;
 }
