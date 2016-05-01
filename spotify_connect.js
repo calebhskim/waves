@@ -65,8 +65,8 @@ spotify_connect.single_token_lookup = function(code, final_callback) {
 
 
 // code to test
-//var code1 = '';
+var code1 = 'BQCAW436CpMMtRaADv5Z2riwen7cXe_tL6_j121d7mTulawbyU2RYKQZ13nRouGMzCW4zavK1mPJ933vsgZi626cQGr5lbPhg0vLuNJjqTMh1Vn3Bmgv8IpU6rUAGd37-jLl1HKTwbm-zob3pZvFwrGmYtjlNC3HhEttwR0RXac4h2S9Jiwpn5LnjYtpJo3C8Q';
 
-//spotify_connect.multi_token_lookup(code1, code1, function(err, res) {
-//    console.log(res);
-//});
+spotify_connect.single_token_lookup(code1, function(err, res) {
+    console.log(res.tracks);
+});
