@@ -80,7 +80,7 @@ match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
     
     // }
 
-    callback(compatibility /**should pass in common tracks and artists for display*/) // you put the percentage in here when youre done
+    callback(null, compatibility /**should pass in common tracks and artists for display*/) // you put the percentage in here when youre done
 }
 
 

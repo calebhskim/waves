@@ -10,45 +10,30 @@ html(lang="en")
             .user-container
                 .test.loggedin Test
                 .user#user1
+                    img#img1(src="img/empty.png")
+                    h2#user1name User One
                     a.login#login1.waves-effect.waves-light(href="/login") Log In with Spotify
-                    img(src="img/empty.png")
-                    h2 User One
+                    #loggedin1
+                        #oauth
                 .user#user2
+                    img#img2(src="img/empty.png")
+                    h2#user2name User Two
                     a.login#login2 Log In with Spotify
-                    img(src="img/empty.png")
-                    h2 User Two
-            #login
-                .forms
+
+            //#login
+                //.forms
                     //a.waves-effect.waves-light.btn(href="/login") sign-in
-            #loggedin
-                #user-profile
-                #oauth
+            //#loggedin
+                //#user-profile
+                
                 //button.btn.btn-default#obtain-new-token get-token
             //#percentage.percentage
         script#user-profile-template(type='text/x-handlebars-template').
-            <!--<h1>Logged in as {{display_name}}</h1>
-            <div class="media">
-                <div class="pull-left">
-                    <img class="media-object" width="150" src="{{images.0.url}}" />
-                </div>
-                <div class="media-body">
-                    <dl class="dl-horizontal">
-                        <dt>Display name</dt><dd class="clearfix">{{display_name}}</dd>
-                        <dt>Id</dt><dd>{{id}}</dd>
-                        <dt>Email</dt><dd>{{email}}</dd>
-                        <dt>Spotify URI</dt><dd><a href="{{external_urls.spotify}}">{{external_urls.spotify}}</a></dd>
-                        <dt>Link</dt><dd><a href="{{href}}">{{href}}</a></dd>
-                        <dt>Profile Image</dt><dd class="clearfix"><a href="{{images.0.url}}">{{images.0.url}}</a></dd>
-                        <dt>Country</dt><dd>{{country}}</dd>
-                    </dl>
-                </div>
-            </div>-->
+            <h2>{{display_name}}</h2>
         script#oauth-template(type='text/x-handlebars-template').
-            <!--<h2>oAuth info</h2>
             <dl class="dl-horizontal">
-                <dt>Access token</dt><dd class="text-overflow">{{access_token}}</dd>
-                <dt>Refresh token</dt><dd class="text-overflow">{{refresh_token}}></dd>
-            </dl>-->
+                <dt>Share url</dt><dd class="text-overflow">{{share_url}}</dd>
+            </dl>
         script(src="../js/jquery.min.js")
         script(src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js")
@@ -70,6 +55,8 @@ html(lang="en")
                   return hashParams;
                 }
 
+                var tokens = undefined;
+
                 var userProfileSource = document.getElementById('user-profile-template').innerHTML,
                     userProfileTemplate = Handlebars.compile(userProfileSource),
                     userProfilePlaceholder = document.getElementById('user-profile');
@@ -82,6 +69,8 @@ html(lang="en")
 
                 var access_token = params.access_token,
                     refresh_token = params.refresh_token,
+                    share_url = params.share_url,
+                    state = params.state,
                     error = params.error;
 
                 if (error) {
@@ -91,8 +80,77 @@ html(lang="en")
                     // render oauth info
                     oauthPlaceholder.innerHTML = oauthTemplate({
                       access_token: access_token,
-                      refresh_token: refresh_token
+                      refresh_token: refresh_token,
+                      share_url: share_url
                     });
+
+                    if (share_url === "http://0.0.0.0:3000/login") {
+                        $.get( "http://0.0.0.0:3000/token", 
+                        {number : 2, clientid : state}, 
+                        function( data ) {
+                            console.log(data);
+                            tokens = data;
+                            alert( "Load was performed." );
+                            $("#img2").attr("src","../img/jess.jpg");
+                            $("#user2name").text("Anne");
+                            $('#login2').hide();
+                            $.get( "http://0.0.0.0:3000/percent", 
+                                {token1 : tokens['client1'], token2 : tokens['client2']}, 
+                                function( data ) {
+                                    console.log("Percent");
+                                    console.log(data);
+                                        $(this).addClass("test-clicked");
+                                        setTimeout(function() {
+                                          $(".test").text("your results").fadeIn();
+                                        }, 700);
+
+                                        // progressbar.js@1.0.0 version is used
+                                        // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
+
+                                        var bar = new ProgressBar.Circle('#percentage', {
+                                        color: '#fff',
+                                        // This has to be the same size as the maximum width to
+                                        // prevent clipping
+                                        strokeWidth: 3,
+                                        trailWidth: 1,
+                                        easing: 'easeOut',
+                                        duration: 2500,
+                                        text: {
+                                          autoStyleContainer: false
+                                        },
+                                        from: { color: '#aee4ff', width: 1 },
+                                        to: { color: '#e3aeff', width: 3 },
+                                        // Set default step function for all animate calls
+                                        step: function(state, circle) {
+                                            circle.path.setAttribute('stroke', state.color);
+                                            circle.path.setAttribute('stroke-width', state.width);
+
+                                            var value = Math.round(circle.value() * 100);
+                                            if (value === 0) {
+                                              circle.setText('');
+                                            } else {
+                                              circle.setText(value+"%");
+                                            }
+
+                                          }
+                                        });
+
+                                        bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+                                        bar.text.style.fontSize = '8rem';
+
+                                        bar.animate(0.8);  // Number from 0.0 to 1.0
+                                        // end progress bar
+
+                                        $("#percentage").fadeIn();
+                                        $("#percentage").addClass("percentage-up");
+                                        $("#user1").addClass("push-left");
+                                        $("#user2").addClass("push-right");
+                            }); 
+                        }); 
+                    }
+                    else {
+                        console.log("User 1");
+                    }
 
                     $.ajax({
                         url: 'https://api.spotify.com/v1/me',
@@ -102,14 +160,18 @@ html(lang="en")
                         success: function(response) {
                           userProfilePlaceholder.innerHTML = userProfileTemplate(response);
 
-                          $('#login').hide();
-                          $('#loggedin').show();
+                          $("#img1").attr("src","../img/jess.jpg");
+                          $("#user1name").text("Anne");
+                          $('#login1').hide();
+                          //$('#loggedin1').show();
                         }
                     });
                   } else {
                       // render initial screen
-                      $('#login').show();
-                      $('#loggedin').hide();
+                      $('#login1').show();
+                      //$('#loggedin1').hide();
+                      $('#login2').show();
+                      //$('#loggedin2').hide();
                   }
 
                   document.getElementById('obtain-new-token').addEventListener('click', function() {

@@ -80,7 +80,7 @@ h1 {
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font-weight: 400;
-	top: 50%;
+   margin-top: 50px;
 	transform: translateY(-60%);
 	-webkit-transform: translateY(-60%);
 	cursor: pointer;
