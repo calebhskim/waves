@@ -1,21 +1,19 @@
 var jsonfile = require('jsonfile');
+var match = module.exports = {};
 
 l_tracks = jsonfile.readFileSync('lukas_tracks.json');
 l_artists = jsonfile.readFileSync('lukas_artists.json');
 c_tracks = jsonfile.readFileSync('caleb_tracks.json');
 c_artists = jsonfile.readFileSync('caleb_artists.json');
 
-
-match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
+match.match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
 	//setting up ID arrays 
     var p1_track_id = [], p1_artist_id = [], p2_track_id = [], p2_artist_id = [];
 
-    for (i = 0; i < p1_track.length; i++){
-    	p1_track_id.push(p1_track[i].id);
-    	p1_artist_id.push(p1_artist[i].id);
-    	p2_track_id.push(p2_track[i].id);
-    	p2_artist_id.push(p2_artist[i].id);
-    }
+    p1_track_id = p1_track.map(function(x) { return x.id; });
+    p1_artist_id = p1_artist.map(function(x) { return x.id; });
+    p2_track_id = p2_track.map(function(x) { return x.id; });
+    p2_artist_id = p2_artist.map(function(x) { return x.id; });
 
     //finding commonalities
     var common_tracks = [], common_artists = [];
@@ -55,6 +53,7 @@ match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
     	}
     }
 
+
     //checks for corners
     var track_points = 0, artist_points = 0;
 
@@ -63,7 +62,7 @@ match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
     		total_tp = 1;
     		tp = 1;
     	}
-    	track_points = (tp/total_tp)
+    	track_points = (tp/total_tp);
     }
 
     if (common_artists.length != 0){
@@ -71,16 +70,14 @@ match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
     		total_ap = 1;
     		ap = 1;
     	}
-    	artist_points = (ap/total_ap)
+    	artist_points = (ap/total_ap);
     }
 
 
     var compatibility = (common_tracks.length/p1_track.length)*(0.35) + track_points*(0.05) + 
     					(common_artists.length/p1_artist.length)*(0.525) + artist_points*(0.075);
     
-    // }
-
-    callback(compatibility /**should pass in common tracks and artists for display*/) // you put the percentage in here when youre done
+    callback(null, compatibility /**should pass in common tracks and artists for display*/); // you put the percentage in here when youre done
 }
 
 
@@ -91,15 +88,15 @@ l_artists = jsonfile.readFileSync('test_artist1.json');
 c_tracks = jsonfile.readFileSync('test_track2.json');
 c_artists = jsonfile.readFileSync('test_artist2.json');
 
-match(l_tracks, l_artists, c_tracks, c_artists, function(res) {
-    console.log(res);
-});
+//match.match(l_tracks, l_artists, c_tracks, c_artists, function(res) {
+//    console.log(res);
+//});
 
 l_tracks = jsonfile.readFileSync('lukas_tracks.json');
 l_artists = jsonfile.readFileSync('lukas_artists.json');
 c_tracks = jsonfile.readFileSync('caleb_tracks.json');
 c_artists = jsonfile.readFileSync('caleb_artists.json');
 
-match(l_tracks, l_artists, c_tracks, c_artists, function(res) {
-    console.log(res);
-});
+//match.match(l_tracks, l_artists, c_tracks, c_artists, function(res) {
+//    console.log(res);
+//});
