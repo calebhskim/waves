@@ -5,15 +5,17 @@ html(lang="en")
 		.container
 			h1 Waves
 			#percentage.percentage
+			#divider
 			.user-container
+				.test.loggedin Test
 				.user#user1
 					a.login#login1 Log In with Spotify
-					img(src="img/jess.jpg")
-					h2 Jessica He
+					img(src="img/jess.jpg").loggedin
+					h2.loggedin Jessica He
 				.user#user2
 					a.login#login2 Log In with Spotify
-					img(src="img/jess.jpg")
-					h2 Anne Lin
+					img(src="img/anne.jpg").loggedin
+					h2.loggedin Anne Lin
 	script(src="../js/jquery.min.js")
 	script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js")
 	script(src="../js/progressbar.js")
