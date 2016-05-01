@@ -12,6 +12,12 @@ $(".login").click(function() {
     }
 })
 
+//temp
+$("#logo").click(function() {
+  $(".loggedin").show();
+  $(".login").hide();
+})
+
 $(".test").click(function() {
     $(this).addClass("test-clicked");
     setTimeout(function() {
