@@ -115,10 +115,10 @@ var file2 = 'caleb_artists.json';
 //});
 
 // code to test
-var code1 = 'BQAn9yxO-_tvXKueJ4kpf4nv_bU4VbjJRIBTBZqqzH9KfYivmnwWDCrLUDokJHJysKg9-xBXCGhelXFv1RMwQogzotLFRzEKQ9sT5nIxC9qSHJvE8syiLkL35gcjtj0GUpZEIZZ2OxPV6tqO_ChOC2lUeLC10juMcOvwqYLOI1yWQw';
+var code1 = 'BQDVMhPJ1dMBFIZlt5R7p-8oODhtyIWoj5TycyrW5Melkqe2R1VHmNi9yGVfg8zl_K6o5IRafoMyf2tp2AxGccn25V-0gc7EE25Os_mjpQfob-tz_vVPtdNnAwvX1DQ8tBoe8wWWiYs6oIs-iTkEGuXIWKBu_Zcjy4TMUExO0x4';
 
-var code2 = 'BQB0yWPQfTafPZgfzqKPVSpzrlm-IiHVibNj06cVrXfajjFYNTK-sBFMyyBu3RLLNTeJLPOjFc4Ax2jahzA3x7DbucH-Iisf3xc2-RLP6YXRS0GejN9VNsVtNph5ESkBDuXMebv_QOJboz09BWns54_5VA-7OGsEHwlQyOxzXN4Ys3tw6A';
+var code2 = 'BQDgmU86MerAiK9CvSmHaTpJ9Eab6r32ctk6pJEo2ihdsIzQLncDtBkdllIp6slOH7d_4rd3gV3JCSdf4Ns7lrqR0WSEhIWJYcSMa10VphOI0ffNNt-xsIOLsja_X-RJub0qNL71xiqFbvERuiFHoBoMegTkdoDSPZES_5PhjwM';
 
-//spotify_connect.multi_token_lookup(code1, code2, function(err, res) {
-//    console.log(res);
-//});
+spotify_connect.multi_token_lookup(code1, code2, function(err, res) {
+    console.log(res);
+});

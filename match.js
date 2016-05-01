@@ -70,6 +70,8 @@ match.match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
         }
     }
 
+    console.log("he");
+
 
     //checks for corners
     var track_points = 0, artist_points = 0;
@@ -123,6 +125,8 @@ match.match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
 		for (var i = 0; i < 3 && i < common_artists.length; i++) {
 			top3_artists.push(common_artists[i]);
 		}
+
+        console.log(top3_artists);
 
 		spotify_connect.getArtists(top3_artists,
 				function(data) {
