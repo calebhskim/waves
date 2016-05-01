@@ -25,10 +25,10 @@ h1 {
 }
 
 .user-container {
-   width: 90%;
-   margin: 0 auto;
-   margin-top: 50px;
-   height: 700px;
+	width: 90%;
+	margin: 0 auto;
+	margin-top: 100px;
+	height: 75vh;
 }
 
 #percentage {
@@ -146,10 +146,10 @@ h1 {
 }
 
 .test-clicked {
-   transform: translateY(-500px);
-   -webkit-transform: translateY(-500px);
-   width: 180px;
-   border-radius: 0;
+	transform: translateY(-550px);
+	-webkit-transform: translateY(-550px);
+	width: 180px;
+	border-radius: 0;
 }
 
 .push-left {
@@ -167,4 +167,16 @@ h1 {
 
 .container .loggedin {
    display: none;
+}
+
+@media (max-width: 600px) {
+
+	.user h2 {
+		font-size: 1em;
+	}
+
+	.login {
+		width: 150px;
+		font-size: 0.7em;
+	}
 }
