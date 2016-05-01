@@ -58,7 +58,7 @@ h1 {
 	width: 50%;
 	height: 100%;
 	float: left;
-	transition: 1.8s ease;
+	transition: 1.6s cubic-bezier(.79,.01,0,1);
 }
 
 #user1 {

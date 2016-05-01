@@ -18,7 +18,7 @@ $("#logo").click(function() {
   $(".login").hide();
 })
 
-$(".test").click(function() {
+$(".test").one("click", function() {
     $(this).addClass("test-clicked");
     setTimeout(function() {
       $(".test").text("your results").fadeIn();
