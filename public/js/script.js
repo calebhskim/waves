@@ -28,6 +28,6 @@ var bar = new ProgressBar.Circle('#percentage', {
   }
 });
 bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
-bar.text.style.fontSize = '9.5rem';
+bar.text.style.fontSize = '8rem';
 
 bar.animate(0.8);  // Number from 0.0 to 1.0
