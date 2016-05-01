@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/calebhskim/waves#readme",
   "dependencies": {
-    "jsonfile": "^2.3.0"
+    "async": "^1.5.2",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.13.4",
+    "jsonfile": "^2.3.0",
+    "request": "^2.72.0",
+    "spotify-web-api-node": "^2.3.0"
   }
 }
