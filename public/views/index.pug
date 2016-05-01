@@ -4,50 +4,40 @@ html(lang="en")
     body
         .container
             h1 Waves
+            img(src="img/logo2.png")#logo
             #percentage.percentage
             #divider
             .user-container
                 .test.loggedin Test
                 .user#user1
+                    img#img1(src="img/empty.png")
+                    h2#user1name User One
                     a.login#login1.waves-effect.waves-light(href="/login") Log In with Spotify
-                    img(src="img/jess.jpg")
-                    h2 Jessica He
+                    #loggedin1
+                        #oauth
+                    ol.top 
+                        li#num1.artists Kanye West
+                        li#num2.artists Drake
+                        li#num3.artists Kendrick Lamar
+
                 .user#user2
-                    a.login#login2 Log In with Spotify
-                    img(src="img/jess.jpg")
-                    h2 Anne Lin
-            #login
-                .forms
+                    img#img2(src="img/empty.png")
+                    h2#user2name User Two
+
+            //#login
+                //.forms
                     //a.waves-effect.waves-light.btn(href="/login") sign-in
-            #loggedin
-                #user-profile
-                #oauth
+            //#loggedin
+                //#user-profile
+                
                 //button.btn.btn-default#obtain-new-token get-token
             //#percentage.percentage
         script#user-profile-template(type='text/x-handlebars-template').
-            <!--<h1>Logged in as {{display_name}}</h1>
-            <div class="media">
-                <div class="pull-left">
-                    <img class="media-object" width="150" src="{{images.0.url}}" />
-                </div>
-                <div class="media-body">
-                    <dl class="dl-horizontal">
-                        <dt>Display name</dt><dd class="clearfix">{{display_name}}</dd>
-                        <dt>Id</dt><dd>{{id}}</dd>
-                        <dt>Email</dt><dd>{{email}}</dd>
-                        <dt>Spotify URI</dt><dd><a href="{{external_urls.spotify}}">{{external_urls.spotify}}</a></dd>
-                        <dt>Link</dt><dd><a href="{{href}}">{{href}}</a></dd>
-                        <dt>Profile Image</dt><dd class="clearfix"><a href="{{images.0.url}}">{{images.0.url}}</a></dd>
-                        <dt>Country</dt><dd>{{country}}</dd>
-                    </dl>
-                </div>
-            </div>-->
+            <h2>{{display_name}}</h2>
         script#oauth-template(type='text/x-handlebars-template').
-            <!--<h2>oAuth info</h2>
             <dl class="dl-horizontal">
-                <dt>Access token</dt><dd class="text-overflow">{{access_token}}</dd>
-                <dt>Refresh token</dt><dd class="text-overflow">{{refresh_token}}></dd>
-            </dl>-->
+                <dt>Share URL:</dt><dd class="text-overflow"><textarea onclick="this.focus();this.select()" readonly="readonly">{{share_url}}</textarea></dd>
+            </dl>
         script(src="../js/jquery.min.js")
         script(src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js")
@@ -69,6 +59,8 @@ html(lang="en")
                   return hashParams;
                 }
 
+                var tokens = undefined;
+
                 var userProfileSource = document.getElementById('user-profile-template').innerHTML,
                     userProfileTemplate = Handlebars.compile(userProfileSource),
                     userProfilePlaceholder = document.getElementById('user-profile');
@@ -81,16 +73,22 @@ html(lang="en")
 
                 var access_token = params.access_token,
                     refresh_token = params.refresh_token,
+                    share_url = params.share_url,
+                    state = params.state,
                     error = params.error;
 
                 if (error) {
                   alert('There was an error during the authentication');
                 } else {
                   if (access_token) {
+                    $(".dl-horizontal").fadeOut();
+                    $('#login1').hide();
+                    //$('#loggedin1').show();
                     // render oauth info
                     oauthPlaceholder.innerHTML = oauthTemplate({
                       access_token: access_token,
-                      refresh_token: refresh_token
+                      refresh_token: refresh_token,
+                      share_url: share_url
                     });
 
                     $.ajax({
@@ -99,16 +97,112 @@ html(lang="en")
                           'Authorization': 'Bearer ' + access_token
                         },
                         success: function(response) {
-                          userProfilePlaceholder.innerHTML = userProfileTemplate(response);
-
-                          $('#login').hide();
-                          $('#loggedin').show();
+                            console.log("Intial");
+                            console.log(response);
+                            $("#img1").fadeOut(function() {
+                                $(this).attr("src",response.images[0].url).fadeIn(800);
+                                $("#user1name").text(response.display_name).fadeIn(800);
+                            });
                         }
                     });
+                    //lukas TODO
+                    if (share_url === "http://0.0.0.0:3000/login") {
+                    	$(".dl-horizontal").hide();
+                        $.get( "http://0.0.0.0:3000/token", 
+                        {number : 2, clientid : state}, 
+                        function( data ) {
+                            console.log(data);
+                            tokens = data;
+                            $.ajax({
+                                url: 'https://api.spotify.com/v1/me',
+                                headers: {
+                                  'Authorization': 'Bearer ' + tokens['client2']
+                                },
+                                success: function(response) {
+                                    console.log("Intial");
+                                    console.log(response);
+                                    $("#img2").fadeOut(function() {
+                                        $(this).attr("src",response.images[0].url).fadeIn(800);
+                                        $("#user2name").text(response.display_name).fadeIn(800);
+                                    });
+                                }
+                            });
+                            $('#login2').hide();
+                            $.get( "http://0.0.0.0:3000/percent", 
+                                {token1 : tokens['client1'], token2 : tokens['client2']}, 
+                                function( data ) {
+                                    console.log("Percent");
+                                    console.log(data);
+                                    $(".test").fadeIn();
+                                    $(".test").one("click", function() {
+
+                                    	console.log("data")
+                                        $("#num1").text(data[1][0].name);
+                                        $("#num2").text(data[1][1].name);
+                                        $("#num3").text(data[1][2].name);
+
+                                        $(this).addClass("test-clicked");
+                                        setTimeout(function() {
+                                          $(".test").text("your results").fadeIn();
+                                        }, 700);
+
+                                        // progressbar.js@1.0.0 version is used
+                                        // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
+
+                                        var bar = new ProgressBar.Circle('#percentage', {
+                                        color: '#fff',
+                                        // This has to be the same size as the maximum width to
+                                        // prevent clipping
+                                        strokeWidth: 3,
+                                        trailWidth: 1,
+                                        easing: 'easeOut',
+                                        duration: 2500,
+                                        text: {
+                                          autoStyleContainer: false
+                                        },
+                                        from: { color: '#aee4ff', width: 1 },
+                                        to: { color: '#e3aeff', width: 3 },
+                                        // Set default step function for all animate calls
+                                        step: function(state, circle) {
+                                            circle.path.setAttribute('stroke', state.color);
+                                            circle.path.setAttribute('stroke-width', state.width);
+
+                                            var value = Math.round(circle.value() * 100);
+                                            if (value === 0) {
+                                              circle.setText('');
+                                            } else {
+                                              circle.setText(value+"%");
+                                            }
+
+                                          }
+                                        });
+
+                                        bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+                                        bar.text.style.fontSize = '8rem';
+
+                                        bar.animate(data[0]);  // Number from 0.0 to 1.0
+                                        // end progress bar
+
+
+                                        $(".dl-horizontal").fadeOut();
+                                        $("#percentage").fadeIn();
+                                        $("#percentage").addClass("percentage-up");
+                                        $("#user1").addClass("push-left");
+                                        $("#user2").addClass("push-right");
+                                    });
+                            }); 
+                        }); 
+                    }
+                    else {
+                        console.log("User 1");
+                    }
+
                   } else {
                       // render initial screen
-                      $('#login').show();
-                      $('#loggedin').hide();
+                      $('#login1').show();
+                      //$('#loggedin1').hide();
+                      $('#login2').show();
+                      //$('#loggedin2').hide();
                   }
 
                   document.getElementById('obtain-new-token').addEventListener('click', function() {

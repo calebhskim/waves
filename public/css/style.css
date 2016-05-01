@@ -4,144 +4,207 @@ body {
 }
 
 .container {
-	width: 100%;
+   width: 100%;
 }
 
 h1 {
-	text-align: center;
-	text-transform: uppercase;
-	color: #fff200;
-	font-weight: 700;
-	letter-spacing: 5px;
-	margin-top: 50px;
+   text-align: center;
+   text-transform: uppercase;
+   color: #fff200;
+   font-weight: 700;
+   letter-spacing: 10px;
+   margin-top: 50px;
+   display: none;
+}
+
+#logo {
+   height: 60px;
+   display: block;
+   margin: 0 auto;
+   margin-top: 50px;
 }
 
 .user-container {
 	width: 90%;
 	margin: 0 auto;
-	height: 700px;
+	margin-top: 100px;
+	height: 75vh;
 }
 
 #percentage {
-	width: 350px;
-	height: 350px;
-	position: absolute;
-	margin-top: 100px;
-	left: calc(50% - 350px/2);
-	top: 900px;
-	display: none;
-	transition: 1.5s ease;
-	z-index: 10;
+   width: 350px;
+   height: 350px;
+   position: absolute;
+   margin-top: 100px;
+   left: calc(50% - 350px/2);
+   top: 900px;
+   display: none;
+   transition: 1.5s ease;
+   z-index: 10;
 }
 
 #divider {
-	position: absolute;
-	left: calc(50% - 0.5px);
-	width: 1px;
-	min-height: 700px;
-	height: 80%;
-	background: #e3aeff;
-
+   position: absolute;
+   left: calc(50% - 0.5px);
+   width: 1px;
+   min-height: 600px;
+   height: calc(100% - 200px);
+   background: #e3aeff;
+   margin-top: 50px;
 }
 
 .user {
-	position: relative;
-	width: 50%;
-	height: 100%;
-	float: left;
-	transition: 1.8s ease;
+   position: relative;
+   width: 50%;
+   height: 100%;
+   float: left;
+   transition: 1.8s ease;
 }
 
 #user1 {
 }
 
 #user2 {
-	float: right;
+   float: right;
 }
 
 .login {
-	position: relative;
-	display: block;
-	margin: 0 auto;
-	padding: 8px;
-	background-color: #1ed760;
-	width: 200px;
-	text-align: center;
-	border-radius: 50px;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	font-weight: 400;
-	top: 50%;
-	transform: translateY(-60%);
-	-webkit-transform: translateY(-60%);
-	cursor: pointer;
+   position: relative;
+   display: block;
+   margin: 0 auto;
+   padding: 8px;
+   background-color: #1ed760;
+   width: 200px;
+   text-align: center;
+   border-radius: 50px;
+   text-transform: uppercase;
+   letter-spacing: 1px;
+   font-weight: 400;
+   margin-top: 50px;
+   transform: translateY(-60%);
+   -webkit-transform: translateY(-60%);
+   cursor: pointer;
 }
 
 .user a {
-	color: white;
+   color: white;
 }
 
 .user h2 {
-	font-size: 1.5em;
-	text-align: center;
-	text-transform: uppercase;
-	font-weight: 700;
-	letter-spacing: 2px;
-	color: #acf962;
+   font-size: 1.5em;
+   text-align: center;
+   text-transform: uppercase;
+   font-weight: 700;
+   letter-spacing: 2px;
+   color: #acf962;
 }
 
 .user img {
-	display: block;
-	margin: 0 auto;
-	margin-top: 50px;
-	width: 150px;
-	height: 150px;
-	object-fit: cover;
-	border-radius: 50%;
+   display: block;
+   margin: 0 auto;
+   margin-top: 50px;
+   width: 150px;
+   height: 150px;
+   object-fit: cover;
+   border-radius: 50%;
 }
 
 .test {
+   position: relative;
+   display: block;
+   margin: 0 auto;
+   text-align: center;
+   top: 550px;
+   background: #e3aeff;
+   padding: 5px;
+   width: 80px;
+   text-transform: uppercase;
+   border-radius: 30px;
+   letter-spacing: 1px;
+   font-weight: 700;
+   color: white;
+   z-index: 10;
+   transition: 1.5s ease;
+}
+
+.dl-horizontal {
+   position: fixed;
+   top: 100vh;
+   left: calc(50% - 280px /2);
+   color: rgba(255,255,255,0.85);
+   width: 280px;
+   display: block;
+   margin: 0 auto;
+   padding: 10px;
+   animation: 1s sharelink ease forwards;
+   font-size: 0.8em;
+}
+
+.text-overflow {
+    margin: 0;
+}
+
+.dl-horizontal .text-overflow textarea {
 	position: relative;
-	display: block;
-	margin: 0 auto;
 	text-align: center;
-	top: 550px;
-	background: #e3aeff;
-	padding: 5px;
-	width: 80px;
-	text-transform: uppercase;
-	border-radius: 30px;
-	letter-spacing: 1px;
-	font-weight: 700;
-	color: white;
-	z-index: 10;
-	transition: 1.5s ease;
+    font-size: 1.25em;
+    height: auto;
+    border: none;
+    text-decoration: underline;
+    color: white;
+    background: #e3aeff;
+    margin-top: 5px;
+    padding: 15px;
 }
 
 .test:hover {
-	cursor: pointer;
+   cursor: pointer;
 }
 
 .test-clicked {
-	transform: translateY(-500px);
-	-webkit-transform: translateY(-500px);
+	transform: translateY(-550px);
+	-webkit-transform: translateY(-550px);
 	width: 180px;
 	border-radius: 0;
 }
 
 .push-left {
-	padding-right: 180px;
+   padding-right: 180px;
 }
 
 .push-right {
-	padding-left: 180px;
+   padding-left: 180px;
 }
 
 .percentage-up {
-	transform: translateY(-650px);
-	-webkit-transform: translateY(-650px);
+   transform: translateY(-650px);
+   -webkit-transform: translateY(-650px);
 }
 
 .container .loggedin {
-	display: none;
+   display: none;
+}
+
+.
+
+@media (max-width: 600px) {
+
+	.user h2 {
+		font-size: 1em;
+	}
+
+	.login {
+		width: 150px;
+		font-size: 0.7em;
+	}
+}
+
+@keyframes sharelink {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+		transform: translateY(-65vh);
+	}
 }

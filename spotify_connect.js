@@ -4,8 +4,8 @@ var match = require('./match');
 var spotify_connect = module.exports = {};
 
 var spotifyApi = new SpotifyWebApi({
-  clientId : 'c2674de31ff64b34a165298139a5ddfb',
-  clientSecret : 'c4294447a0f349a0bdeceb70e7489000'
+  clientId : '2fba170ea0a347e5b4a745949bb47e8f',
+  clientSecret : 'c31edf15faaa4df789de7586d955855d'
 });
 
 spotify_connect.multi_token_lookup = function(token1, token2, final_callback) {
