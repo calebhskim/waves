@@ -18,9 +18,13 @@
   "homepage": "https://github.com/calebhskim/waves#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "cookie-parser": "^1.4.1",
     "express": "^4.13.4",
     "materialize-css": "^0.97.6",
     "progressbar.js": "^1.0.1",
-    "pug": "^2.0.0-alpha6"
+    "pug": "^2.0.0-alpha6",
+    "query-string": "^4.1.0",
+    "querystring": "^0.2.0",
+    "request": "^2.72.0"
   }
 }
