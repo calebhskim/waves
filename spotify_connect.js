@@ -1,5 +1,6 @@
 var SpotifyWebApi = require('spotify-web-api-node');
 var async = require('async');
+var match = require('./match');
 var spotify_connect = module.exports = {};
 
 var spotifyApi = new SpotifyWebApi({
@@ -11,18 +12,12 @@ spotify_connect.multi_token_lookup = function(token1, token2, final_callback) {
     async.map([token1, token2], spotify_connect.single_token_lookup, function(err, results) {
         if (err) throw err; 
 
-        match_placeholder(results[0].tracks, results[0].artists, results[1].tracks, results[1].artists, function(err, res) {
+        match.match(results[0].tracks, results[0].artists, results[1].tracks, results[1].artists, function(err, res) {
             if (err) final_callback(err);
 
             final_callback(null, res);
         });
-
     });
-};
-
-match_placeholder = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
-    console.log("doing the matching algo!");
-    callback(null, "50%");
 };
 
 // results come back as {tracks: [objects], artists: [objects]}
@@ -64,9 +59,49 @@ spotify_connect.single_token_lookup = function(code, final_callback) {
 };
 
 
-// code to test
-var code1 = 'BQCAW436CpMMtRaADv5Z2riwen7cXe_tL6_j121d7mTulawbyU2RYKQZ13nRouGMzCW4zavK1mPJ933vsgZi626cQGr5lbPhg0vLuNJjqTMh1Vn3Bmgv8IpU6rUAGd37-jLl1HKTwbm-zob3pZvFwrGmYtjlNC3HhEttwR0RXac4h2S9Jiwpn5LnjYtpJo3C8Q';
+spotify_connect.related_artists = function(p1_artists, p2_artists, callback) {
+    async.map([p1_artists, p2_artists], function(item1, map1_callback) {
+        async.map(item1, function(item2, map2_callback) {
+            spotifyApi.getArtistRelatedArtists(item2.id).then(function(data) {
+                console.log("found stuff");
+                console.log(data.body.artists);
 
-spotify_connect.single_token_lookup(code1, function(err, res) {
-    console.log(res.tracks);
+                for (var i = 0; i < 3 && i < data.body.artists.length; i++) {
+                    //save away the 3 things
+                }
+                data.body.artists.map(function(x) { 
+
+                map2_callback(null, data);
+            }, function(err) {
+                done(err);
+            });
+        }, function(err, res) {
+            if (null) map1_callback(err);
+
+            map1_callback(null, res);
+        });
+    }, function(err, res) {
+        console.log("done with everything");
+        console.log(res);
+        callback(null, res);
+    });
 });
+};
+
+var jsonfile = require('jsonfile');
+var file1 = 'lukas_artists.json';
+var file2 = 'caleb_artists.json';
+
+
+//spotify_connect.related_artists(jsonfile.readFileSync(file1), jsonfile.readFileSync(file2), function(err, res) { 
+//    console.log("got out");
+//});
+
+// code to test
+var code1 = 'BQAn9yxO-_tvXKueJ4kpf4nv_bU4VbjJRIBTBZqqzH9KfYivmnwWDCrLUDokJHJysKg9-xBXCGhelXFv1RMwQogzotLFRzEKQ9sT5nIxC9qSHJvE8syiLkL35gcjtj0GUpZEIZZ2OxPV6tqO_ChOC2lUeLC10juMcOvwqYLOI1yWQw';
+
+var code2 = 'BQB0yWPQfTafPZgfzqKPVSpzrlm-IiHVibNj06cVrXfajjFYNTK-sBFMyyBu3RLLNTeJLPOjFc4Ax2jahzA3x7DbucH-Iisf3xc2-RLP6YXRS0GejN9VNsVtNph5ESkBDuXMebv_QOJboz09BWns54_5VA-7OGsEHwlQyOxzXN4Ys3tw6A';
+
+//spotify_connect.multi_token_lookup(code1, code2, function(err, res) {
+//    console.log(res);
+//});
