@@ -187,7 +187,9 @@ app.get('/percent', function (req, res) {
    console.log("Tokens to query");
    console.log(req.query);
    spcon.multi_token_lookup(req.query.token1.token, req.query.token2.token, function (n, r) {
-      res.send(r);
+      console.log("percentage");
+      console.log(r);
+      res.send({"percent": r});
    });
 });
 

@@ -18,7 +18,6 @@ html(lang="en")
                 .user#user2
                     img#img2(src="img/empty.png")
                     h2#user2name User Two
-                    a.login#login2 Log In with Spotify
 
             //#login
                 //.forms
@@ -77,11 +76,28 @@ html(lang="en")
                   alert('There was an error during the authentication');
                 } else {
                   if (access_token) {
+                    $('#login1').hide();
+                    //$('#loggedin1').show();
                     // render oauth info
                     oauthPlaceholder.innerHTML = oauthTemplate({
                       access_token: access_token,
                       refresh_token: refresh_token,
                       share_url: share_url
+                    });
+
+                    $.ajax({
+                        url: 'https://api.spotify.com/v1/me',
+                        headers: {
+                          'Authorization': 'Bearer ' + access_token
+                        },
+                        success: function(response) {
+                            console.log("Intial");
+                            console.log(response);
+                            $("#img1").fadeOut(function() {
+                                $(this).attr("src",response.images[0].url).fadeIn(800);
+                                $("#user1name").text(response.display_name).fadeIn(800);
+                            });
+                        }
                     });
 
                     if (share_url === "http://0.0.0.0:3000/login") {
@@ -91,8 +107,20 @@ html(lang="en")
                             console.log(data);
                             tokens = data;
                             alert( "Load was performed." );
-                            $("#img2").attr("src","../img/jess.jpg");
-                            $("#user2name").text("Anne");
+                            $.ajax({
+                                url: 'https://api.spotify.com/v1/me',
+                                headers: {
+                                  'Authorization': 'Bearer ' + tokens['client2']
+                                },
+                                success: function(response) {
+                                    console.log("Intial");
+                                    console.log(response);
+                                    $("#img2").fadeOut(function() {
+                                        $(this).attr("src",response.images[0].url).fadeIn(800);
+                                        $("#user2name").text(response.display_name).fadeIn(800);
+                                    });
+                                }
+                            });
                             $('#login2').hide();
                             $.get( "http://0.0.0.0:3000/percent", 
                                 {token1 : tokens['client1'], token2 : tokens['client2']}, 
@@ -138,7 +166,7 @@ html(lang="en")
                                         bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
                                         bar.text.style.fontSize = '8rem';
 
-                                        bar.animate(0.8);  // Number from 0.0 to 1.0
+                                        bar.animate(data.percent);  // Number from 0.0 to 1.0
                                         // end progress bar
 
                                         $("#percentage").fadeIn();
@@ -152,20 +180,6 @@ html(lang="en")
                         console.log("User 1");
                     }
 
-                    $.ajax({
-                        url: 'https://api.spotify.com/v1/me',
-                        headers: {
-                          'Authorization': 'Bearer ' + access_token
-                        },
-                        success: function(response) {
-                          userProfilePlaceholder.innerHTML = userProfileTemplate(response);
-
-                          $("#img1").attr("src","../img/jess.jpg");
-                          $("#user1name").text("Anne");
-                          $('#login1').hide();
-                          //$('#loggedin1').show();
-                        }
-                    });
                   } else {
                       // render initial screen
                       $('#login1').show();
