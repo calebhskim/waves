@@ -68,12 +68,12 @@ spotify_connect.related_artists = function(p1_artists, p2_artists, callback) {
     async.map([p1_artists, p2_artists], function(item1, map1_callback) {
         async.map(item1, function(item2, map2_callback) {
             spotifyApi.getArtistRelatedArtists(item2.id).then(function(data) {
-                var top3 = [];
+                var top6 = [];
                 for (var i = 0; i < 6 && i < data.body.artists.length; i++) {
-                    top3.push(data.body.artists[i]);
+                    top6.push(data.body.artists[i]);
                 }
 
-                map2_callback(null, top3.map(function(x) { return x.id; }));
+                map2_callback(null, top6.map(function(x) { return x.id; }));
             }, function(err) {
                 done(err);
             });
@@ -92,6 +92,12 @@ spotify_connect.related_artists = function(p1_artists, p2_artists, callback) {
         callback(null, res);
     });
 };
+
+
+spotify_connect.getArtists = function(artists, success, fail) {
+    spotifyApi.getArtists(artists)
+      .then(success, fail); 
+}
 
 var jsonfile = require('jsonfile');
 var file1 = 'lukas_artists.json';

@@ -13,12 +13,10 @@ freq_count = function(arr) {
     for (var i in arr) {
         if (arr[i] in hash) {
             hash[arr[i]] += 1;
-        }
-        else {
+        } else {
             hash[arr[i]] = 1;
         }
     }
-
     return hash;
 };
     
@@ -120,13 +118,23 @@ match.match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
             (related_intersect.length / related_intersect_length)*(0.07) + 
             (genre_overall / genre_under)*(0.33);
 
-        console.log(common_artists);
+		
+		var top3_artists = [];
+		for (var i = 0; i < 3 && i < common_artists.length; i++) {
+			top3_artists.push(common_artists[i]);
+		}
 
-        console.log(compatibility);
-        callback(null, compatibility); 
-        /**should pass in common tracks and artists for display*/ 
-        // you put the percentage in here when youre done
-    });
+		spotify_connect.getArtists(top3_artists,
+				function(data) {
+					var artists_with_imgs = data.body.artists.map(function(x) { return {"name":x.name, "image": x.images[0].url}; });
+
+					callback(null, [compatibility, artists_with_imgs]); 
+				}, function(err) {
+					console.log("failed");
+					console.error(err);
+					callback(err);
+				});
+	});
 };
 
 
@@ -146,6 +154,6 @@ l_artists = jsonfile.readFileSync('lukas_artists.json');
 c_tracks = jsonfile.readFileSync('caleb_tracks.json');
 c_artists = jsonfile.readFileSync('caleb_artists.json');
 
-match.match(l_tracks, l_artists, c_tracks, c_artists, function(res) {
-    console.log(res);
-});
+//match.match(l_tracks, l_artists, c_tracks, c_artists, function(err, res) {
+//    console.log(res);
+//});
