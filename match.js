@@ -36,7 +36,9 @@ match.match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
     			total_tp += (Math.floor((p1_track.length / 10)) - rank1);
     		}
     	}
-
+    }
+    
+    for (i = 0; i < p1_artist.length; i++){
     	var p2a_index = p2_artist_id.indexOf(p1_artist_id[i]);
 
     	if (p2a_index > -1){
