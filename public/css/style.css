@@ -154,3 +154,14 @@ h1 {
 	display: none;
 }
 
+@media (max-width: 600px) {
+
+	.user h2 {
+		font-size: 1em;
+	}
+
+	.login {
+		width: 150px;
+		font-size: 0.7em;
+	}
+}
