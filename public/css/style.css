@@ -17,7 +17,7 @@ h1 {
 }
 
 .user-container {
-	width: 80%;
+	width: 90%;
 	margin: 0 auto;
 	height: 700px;
 }
@@ -58,7 +58,7 @@ h1 {
 	margin: 0 auto;
 	padding: 10px;
 	background-color: #acf962;
-	width: 210px;
+	width: 200px;
 	text-align: center;
 	border-radius: 50px;
 	text-transform: uppercase;
@@ -89,3 +89,4 @@ h1 {
 	margin: 0 auto;
 	display: none;
 }
+
