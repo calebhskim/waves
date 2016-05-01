@@ -12,13 +12,22 @@ h1 {
 	text-transform: uppercase;
 	color: #fff200;
 	font-weight: 700;
-	letter-spacing: 5px;
+	letter-spacing: 10px;
+	margin-top: 50px;
+	display: none;
+}
+
+#logo {
+	height: 60px;
+	display: block;
+	margin: 0 auto;
 	margin-top: 50px;
 }
 
 .user-container {
 	width: 90%;
 	margin: 0 auto;
+	margin-top: 50px;
 	height: 700px;
 }
 
@@ -38,10 +47,10 @@ h1 {
 	position: absolute;
 	left: calc(50% - 0.5px);
 	width: 1px;
-	min-height: 700px;
-	height: 80%;
+	min-height: 600px;
+	height: calc(100% - 200px);
 	background: #e3aeff;
-
+	margin-top: 50px;
 }
 
 .user {
