@@ -1,0 +1,147 @@
+body {
+  background: #42424f;
+  font-family: 'Lato', sans-serif;
+}
+
+.container {
+	width: 100%;
+}
+
+h1 {
+	text-align: center;
+	text-transform: uppercase;
+	color: #fff200;
+	font-weight: 700;
+	letter-spacing: 5px;
+	margin-top: 50px;
+}
+
+.user-container {
+	width: 90%;
+	margin: 0 auto;
+	height: 700px;
+}
+
+#percentage {
+	width: 350px;
+	height: 350px;
+	position: absolute;
+	margin-top: 100px;
+	left: calc(50% - 350px/2);
+	top: 900px;
+	display: none;
+	transition: 1.5s ease;
+	z-index: 10;
+}
+
+#divider {
+	position: absolute;
+	left: calc(50% - 0.5px);
+	width: 1px;
+	min-height: 700px;
+	height: 80%;
+	background: #e3aeff;
+
+}
+
+.user {
+	position: relative;
+	width: 50%;
+	height: 100%;
+	float: left;
+	transition: 1.8s ease;
+}
+
+#user1 {
+}
+
+#user2 {
+	float: right;
+}
+
+.login {
+	position: relative;
+	display: block;
+	margin: 0 auto;
+	padding: 8px;
+	background-color: #1ed760;
+	width: 200px;
+	text-align: center;
+	border-radius: 50px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 400;
+	top: 50%;
+	transform: translateY(-60%);
+	-webkit-transform: translateY(-60%);
+	cursor: pointer;
+}
+
+.user a {
+	color: white;
+}
+
+.user h2 {
+	font-size: 1.5em;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 2px;
+	color: #acf962;
+}
+
+.user img {
+	display: block;
+	margin: 0 auto;
+	margin-top: 50px;
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+.test {
+	position: relative;
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	top: 550px;
+	background: #e3aeff;
+	padding: 5px;
+	width: 80px;
+	text-transform: uppercase;
+	border-radius: 30px;
+	letter-spacing: 1px;
+	font-weight: 700;
+	color: white;
+	z-index: 10;
+	transition: 1.5s ease;
+}
+
+.test:hover {
+	cursor: pointer;
+}
+
+.test-clicked {
+	transform: translateY(-500px);
+	-webkit-transform: translateY(-500px);
+	width: 180px;
+	border-radius: 0;
+}
+
+.push-left {
+	padding-right: 180px;
+}
+
+.push-right {
+	padding-left: 180px;
+}
+
+.percentage-up {
+	transform: translateY(-650px);
+	-webkit-transform: translateY(-650px);
+}
+
+.container .loggedin {
+	display: none;
+}
