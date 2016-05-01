@@ -1,5 +1,6 @@
 var jsonfile = require('jsonfile');
 var match = module.exports = {};
+var spotify_connect = require('./spotify_connect');
 
 l_tracks = jsonfile.readFileSync('lukas_tracks.json');
 l_artists = jsonfile.readFileSync('lukas_artists.json');
@@ -75,11 +76,23 @@ match.match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
     	artist_points = (ap/total_ap);
     }
 
+    spotify_connect.related_artists(p1_artist, p2_artist, function(err, res) {
+		intersect_length = Math.max(Math.min(res[0].length, res[1].length), 1);
+		intersect = res[0].filter(function(n) {
+			return res[1].indexOf(n) != -1;
+		});
 
-    var compatibility = (common_tracks.length/p1_track.length)*(0.35) + track_points*(0.05) + 
-    					(common_artists.length/p1_artist.length)*(0.525) + artist_points*(0.075);
-    
-    callback(null, compatibility /**should pass in common tracks and artists for display*/); // you put the percentage in here when youre done
+        var compatibility = (common_tracks.length/p1_track.length)*(0.35) + track_points*(0.05) + 
+                            (common_artists.length/p1_artist.length)*(0.4375) + artist_points*(0.0625) +
+							(intersect.length / intersect_length)*(0.1);
+        
+        callback(null, compatibility); 
+        /**should pass in common tracks and artists for display*/ 
+        // you put the percentage in here when youre done
+    });
+
+
+
 }
 
 

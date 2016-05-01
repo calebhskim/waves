@@ -58,43 +58,54 @@ spotify_connect.single_token_lookup = function(code, final_callback) {
     });
 };
 
+function uniq(a) {
+    return a.sort().filter(function(item, pos, ary) {
+        return !pos || item != ary[pos - 1];
+    });
+}
 
 spotify_connect.related_artists = function(p1_artists, p2_artists, callback) {
     async.map([p1_artists, p2_artists], function(item1, map1_callback) {
         async.map(item1, function(item2, map2_callback) {
             spotifyApi.getArtistRelatedArtists(item2.id).then(function(data) {
-                console.log("found stuff");
-                console.log(data.body.artists);
-
-                for (var i = 0; i < 3 && i < data.body.artists.length; i++) {
-                    //save away the 3 things
+                var top3 = [];
+                for (var i = 0; i < 6 && i < data.body.artists.length; i++) {
+                    top3.push(data.body.artists[i]);
                 }
-                data.body.artists.map(function(x) { 
 
-                map2_callback(null, data);
+                map2_callback(null, top3.map(function(x) { return x.id; }));
             }, function(err) {
                 done(err);
             });
         }, function(err, res) {
-            if (null) map1_callback(err);
+            if (err) map1_callback(err);
 
-            map1_callback(null, res);
+            flat = [].concat.apply([], res);
+
+            uniqueArray = uniq(flat.concat(item1.map(function(x) { return x.id; })));
+
+            map1_callback(null, uniqueArray);
         });
     }, function(err, res) {
-        console.log("done with everything");
-        console.log(res);
+        if (err) callback(err);
+
         callback(null, res);
     });
-});
 };
 
 var jsonfile = require('jsonfile');
 var file1 = 'lukas_artists.json';
 var file2 = 'caleb_artists.json';
 
-
 //spotify_connect.related_artists(jsonfile.readFileSync(file1), jsonfile.readFileSync(file2), function(err, res) { 
-//    console.log("got out");
+//	intersect_length = Math.min(res[0].length, res[1].length);
+//
+//	intersect = res[0].filter(function(n) {
+//		return res[1].indexOf(n) != -1;
+//	});
+//
+//	console.log("related intersection");
+//	console.log(intersect.length / intersect_length);
 //});
 
 // code to test
