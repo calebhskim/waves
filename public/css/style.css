@@ -27,8 +27,8 @@ h1 {
 .user-container {
 	width: 90%;
 	margin: 0 auto;
-	margin-top: 50px;
-	height: 700px;
+	margin-top: 100px;
+	height: 75vh;
 }
 
 #percentage {
@@ -48,7 +48,7 @@ h1 {
 	left: calc(50% - 0.5px);
 	width: 1px;
 	min-height: 600px;
-	height: calc(100% - 200px);
+	height: calc(95vh - 200px);
 	background: #e3aeff;
 	margin-top: 50px;
 }
@@ -58,7 +58,7 @@ h1 {
 	width: 50%;
 	height: 100%;
 	float: left;
-	transition: 1.6s cubic-bezier(.79,.01,0,1);
+	transition: 1.8s cubic-bezier(.79,.01,0,1);
 }
 
 #user1 {
@@ -69,7 +69,6 @@ h1 {
 }
 
 .login {
-	position: relative;
 	display: block;
 	margin: 0 auto;
 	padding: 8px;
@@ -80,7 +79,7 @@ h1 {
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font-weight: 400;
-	top: 50%;
+	margin-top: 50px;
 	transform: translateY(-60%);
 	-webkit-transform: translateY(-60%);
 	cursor: pointer;
@@ -154,3 +153,4 @@ h1 {
 .container .loggedin {
 	display: none;
 }
+
