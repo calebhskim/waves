@@ -1,0 +1,72 @@
+[
+  {
+    "album": {
+      "album_type": "ALBUM",
+      "external_urls": {
+        "spotify": "https://open.spotify.com/album/4PrPbmm0gKvaD3rerOXFg8"
+      },
+      "href": "https://api.spotify.com/v1/albums/4PrPbmm0gKvaD3rerOXFg8",
+      "id": "4PrPbmm0gKvaD3rerOXFg8",
+      "images": [
+        {
+          "height": 635,
+          "url": "https://i.scdn.co/image/072aa7b2bc02406fe643894892578ebe7ce5f99a",
+          "width": 640
+        },
+        {
+          "height": 298,
+          "url": "https://i.scdn.co/image/af169f67cfa70e9fc6c7a1ade385059eeaed8c6f",
+          "width": 300
+        },
+        {
+          "height": 63,
+          "url": "https://i.scdn.co/image/9e69aa20d834f7b707126a6cd69ceeefb0691a8c",
+          "width": 64
+        }
+      ],
+      "name": "The Documentary (Explicit Version)",
+      "type": "album",
+      "uri": "spotify:album:4PrPbmm0gKvaD3rerOXFg8"
+    },
+    "artists": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/0NbfKEOTQCcwd6o7wSDOHI"
+        },
+        "href": "https://api.spotify.com/v1/artists/0NbfKEOTQCcwd6o7wSDOHI",
+        "id": "0NbfKEOTQCcwd6o7wSDOHI",
+        "name": "The Game",
+        "type": "artist",
+        "uri": "spotify:artist:0NbfKEOTQCcwd6o7wSDOHI"
+      },
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/3q7HBObVc0L8jNeTe5Gofh"
+        },
+        "href": "https://api.spotify.com/v1/artists/3q7HBObVc0L8jNeTe5Gofh",
+        "id": "3q7HBObVc0L8jNeTe5Gofh",
+        "name": "50 Cent",
+        "type": "artist",
+        "uri": "spotify:artist:3q7HBObVc0L8jNeTe5Gofh"
+      }
+    ],
+    "disc_number": 1,
+    "duration_ms": 206400,
+    "explicit": true,
+    "external_ids": {
+      "isrc": "USIR10401121"
+    },
+    "external_urls": {
+      "spotify": "https://open.spotify.com/track/2wGSgTmgSF3xjRrHkTc25R"
+    },
+    "href": "https://api.spotify.com/v1/tracks/2wGSgTmgSF3xjRrHkTc25R",
+    "id": "2wGSgTmgSF3xjRrHkTc25R",
+    "is_playable": true,
+    "name": "Hate It Or Love It",
+    "popularity": 63,
+    "preview_url": "https://p.scdn.co/mp3-preview/e4bdc21f9fbf155f5832db85e42c15c3564cfdc4",
+    "track_number": 4,
+    "type": "track",
+    "uri": "spotify:track:2wGSgTmgSF3xjRrHkTc25R"
+  }
+]
