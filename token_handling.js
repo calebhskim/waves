@@ -12,6 +12,8 @@ match.match_access_tokens = function(token1, token2, final_callback) {
         if (err) throw err; 
 
         match_placeholder(results[0].tracks, results[0].artists, results[1].tracks, results[1].artists, function(err, res) {
+            console.log("match probability is this much");
+            console.log(res);
             if (err) final_callback(err);
 
             final_callback(null, res);
@@ -19,6 +21,13 @@ match.match_access_tokens = function(token1, token2, final_callback) {
 
     });
 };
+
+
+match_placeholder = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
+    console.log("here we are!");
+    callback(null, "50%");
+};
+
 
 // results come back as {tracks: [objects], artists: [objects]}
 match.single_token_lookup = function(code, final_callback) {
