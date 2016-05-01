@@ -76,7 +76,7 @@ match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
 
 
     var compatibility = (common_tracks.length/p1_track.length)*(0.35) + track_points*(0.05) + 
-    (common_artists.length/p1_artist.length)*(0.525) + artist_points*(0.075);
+    					(common_artists.length/p1_artist.length)*(0.525) + artist_points*(0.075);
     
     // }
 
