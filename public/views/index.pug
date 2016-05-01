@@ -15,6 +15,11 @@ html(lang="en")
                     a.login#login1.waves-effect.waves-light(href="/login") Log In with Spotify
                     #loggedin1
                         #oauth
+                    ol.top 
+                        li#num1.artists Kanye West
+                        li#num2.artists Drake
+                        li#num3.artists Kendrick Lamar
+
                 .user#user2
                     img#img2(src="img/empty.png")
                     h2#user2name User Two
@@ -31,7 +36,7 @@ html(lang="en")
             <h2>{{display_name}}</h2>
         script#oauth-template(type='text/x-handlebars-template').
             <dl class="dl-horizontal">
-                <dt>Share url</dt><dd class="text-overflow">{{share_url}}</dd>
+                <dt>Share URL:</dt><dd class="text-overflow"><textarea onclick="this.focus();this.select()" readonly="readonly">{{share_url}}</textarea></dd>
             </dl>
         script(src="../js/jquery.min.js")
         script(src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js")
@@ -76,6 +81,7 @@ html(lang="en")
                   alert('There was an error during the authentication');
                 } else {
                   if (access_token) {
+                    $(".dl-horizontal").fadeOut();
                     $('#login1').hide();
                     //$('#loggedin1').show();
                     // render oauth info
@@ -101,12 +107,12 @@ html(lang="en")
                     });
                     //lukas TODO
                     if (share_url === "http://0.0.0.0:3000/login") {
+                    	$(".dl-horizontal").hide();
                         $.get( "http://0.0.0.0:3000/token", 
                         {number : 2, clientid : state}, 
                         function( data ) {
                             console.log(data);
                             tokens = data;
-                            alert( "Load was performed." );
                             $.ajax({
                                 url: 'https://api.spotify.com/v1/me',
                                 headers: {
@@ -127,6 +133,14 @@ html(lang="en")
                                 function( data ) {
                                     console.log("Percent");
                                     console.log(data);
+                                    $(".test").fadeIn();
+                                    $(".test").one("click", function() {
+
+                                    	console.log("data")
+                                        $("#num1").text(data[1][0].name);
+                                        $("#num2").text(data[1][1].name);
+                                        $("#num3").text(data[1][2].name);
+
                                         $(this).addClass("test-clicked");
                                         setTimeout(function() {
                                           $(".test").text("your results").fadeIn();
@@ -166,13 +180,16 @@ html(lang="en")
                                         bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
                                         bar.text.style.fontSize = '8rem';
 
-                                        bar.animate(data.percent);  // Number from 0.0 to 1.0
+                                        bar.animate(data[0]);  // Number from 0.0 to 1.0
                                         // end progress bar
 
+
+                                        $(".dl-horizontal").fadeOut();
                                         $("#percentage").fadeIn();
                                         $("#percentage").addClass("percentage-up");
                                         $("#user1").addClass("push-left");
                                         $("#user2").addClass("push-right");
+                                    });
                             }); 
                         }); 
                     }

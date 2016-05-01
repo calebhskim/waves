@@ -59,7 +59,6 @@ h1 {
    height: 100%;
    float: left;
    transition: 1.8s ease;
-   border: 1px solid white;
 }
 
 #user1 {
@@ -129,16 +128,33 @@ h1 {
 }
 
 .dl-horizontal {
-   color: white;
-   width: 500px;
-   border: 1px solid white;
-   text-align: center;
+   position: fixed;
+   top: 100vh;
+   left: calc(50% - 280px /2);
+   color: rgba(255,255,255,0.85);
+   width: 280px;
    display: block;
    margin: 0 auto;
+   padding: 10px;
+   animation: 1s sharelink ease forwards;
+   font-size: 0.8em;
 }
 
 .text-overflow {
-   margin: 0;
+    margin: 0;
+}
+
+.dl-horizontal .text-overflow textarea {
+	position: relative;
+	text-align: center;
+    font-size: 1.25em;
+    height: auto;
+    border: none;
+    text-decoration: underline;
+    color: white;
+    background: #e3aeff;
+    margin-top: 5px;
+    padding: 15px;
 }
 
 .test:hover {
@@ -169,6 +185,8 @@ h1 {
    display: none;
 }
 
+.
+
 @media (max-width: 600px) {
 
 	.user h2 {
@@ -178,5 +196,15 @@ h1 {
 	.login {
 		width: 150px;
 		font-size: 0.7em;
+	}
+}
+
+@keyframes sharelink {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+		transform: translateY(-65vh);
 	}
 }

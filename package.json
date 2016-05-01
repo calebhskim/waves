@@ -25,7 +25,7 @@
     "pug": "^2.0.0-alpha6",
     "query-string": "^4.1.0",
     "querystring": "^0.2.0",
-    "request": "^2.72.0"
+    "request": "^2.72.0",
     "async": "^1.5.2",
     "jsonfile": "^2.3.0",
     "spotify-web-api-node": "^2.3.0"
