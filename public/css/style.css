@@ -131,8 +131,8 @@ h1 {
 }
 
 .test-clicked {
-	transform: translateY(-500px);
-	-webkit-transform: translateY(-500px);
+	transform: translateY(-550px);
+	-webkit-transform: translateY(-550px);
 	width: 180px;
 	border-radius: 0;
 }
