@@ -22,15 +22,18 @@ freq_count = function(arr) {
     return hash;
 };
     
+expose_id = function(x) {
+    return x.id;
+};
 
 match.match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
     //setting up ID arrays 
     var p1_track_id = [], p1_artist_id = [], p2_track_id = [], p2_artist_id = [];
 
-    p1_track_id = p1_track.map(function(x) { return x.id; });
-    p1_artist_id = p1_artist.map(function(x) { return x.id; });
-    p2_track_id = p2_track.map(function(x) { return x.id; });
-    p2_artist_id = p2_artist.map(function(x) { return x.id; });
+    p1_track_id = p1_track.map(expose_id);
+    p1_artist_id = p1_artist.map(expose_id);
+    p2_track_id = p2_track.map(expose_id);
+    p2_artist_id = p2_artist.map(expose_id);
 
     //finding commonalities
     var common_tracks = [], common_artists = [];
@@ -60,7 +63,7 @@ match.match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
 
         if (p2a_index > -1){
             common_artists.push(p1_artist[i].id);
-            rank2 = Math.floor((p2a_index / 10));
+            var rank2 = Math.floor((p2a_index / 10));
             if (rank2 == rank1){
                 ap += (Math.floor((p1_artist.length / 10)) - rank2);
                 total_ap += (Math.floor((p1_artist.length / 10)) - rank2);
@@ -88,6 +91,7 @@ match.match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
             total_ap = 1;
             ap = 1;
         }
+        console.log("ap ??? ",ap, "  total_ap", total_ap);
         artist_points = (ap/total_ap);
     }
 
@@ -122,9 +126,9 @@ match.match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
         var genre_res = genre_overall / genre_under;
         console.log("match results:");
         console.log("common tracks:", common_track_res); 
-        console.log("track points:", related_res); 
+        console.log("track points:", track_points); 
         console.log("common artists:", common_artists_res); 
-        console.log("artist points:", related_res); 
+        console.log("artist points:", artist_points); 
         console.log("related artists:", related_res); 
         console.log("related artists:", related_res); 
 
@@ -132,25 +136,21 @@ match.match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
             (common_artists_res)*(0.25) + artist_points*(0.05) +
             (related_res)*(0.07) + 
             (genre_res)*(0.33);
-
 		
 		var top3_artists = [];
 		for (var i = 0; i < 3 && i < common_artists.length; i++) {
 			top3_artists.push(common_artists[i]);
-		}
+        }
 
-        setTimeout(
-            getArtists(top3_artists,
-                    function(data) {
-                        var artists_with_imgs = data.body.artists.map(function(x) { return {"name":x.name, "image": x.images[0].url}; });
-                        callback(null, {"percent":compatibility, "common_artists":artists_with_imgs}); 
-                    }, function(err) {
-                        console.log("failed");
-                        console.error(err);
-                        callback(err);
-                    }),
-            1000);
-
+        getArtists(top3_artists,
+                function(data) {
+                    var artists_with_imgs = data.body.artists.map(function(x) { return {"name":x.name, "image": x.images[0].url}; });
+                    callback(null, {"percent":compatibility, "common_artists":artists_with_imgs}); 
+                }, function(err) {
+                    console.log("failed");
+                    console.error(err);
+                    callback(err);
+                });
 	});
 };
 
@@ -166,15 +166,11 @@ function uniq(a) {
 }
 
 related_artists = function(p1_artists, p2_artists, callback) {
-    async.mapSeries([p1_artists, p2_artists], function(item1, map1_callback) {
-        async.mapSeries(item1, function(item2, map2_callback) {
+    async.mapSeries([p1_artists.slice(0,10), p2_artists.slice(0,10)], function(item1, map1_callback) {
+        async.map(item1, function(item2, map2_callback) {
             spcred.spotifyApi.getArtistRelatedArtists(item2.id).then(function(data) {
-                var top5 = [];
-                for (var i = 0; i < 5 && i < data.body.artists.length; i++) {
-                    top5.push(data.body.artists[i]);
-                }
 
-                map2_callback(null, top5.map(function(x) { return x.id; }));
+                map2_callback(null, data.body.artists.slice(0,5).map(function(x) { return x.id; }));
             }, function(err) {
                 map2_callback(err);
             });

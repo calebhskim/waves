@@ -22,7 +22,6 @@ spotify_token.single_token_lookup = function(code, final_callback) {
     async.parallel({
         tracks: function(callback) {
             spcred.spotifyApi.getMyTopTracks({"limit":50}).then(function(data) {
-                //data.body.items.map(function(x) { console.log(x.name); });
                 spcred.spotifyApi.getAudioFeaturesForTracks(
                         data.body.items.map(function(x) { return x.id; }))
                     .then(function(features) {
@@ -42,7 +41,6 @@ spotify_token.single_token_lookup = function(code, final_callback) {
         },
         artists: function(callback) { 
             spcred.spotifyApi.getMyTopArtists({"limit":50}).then(function(data) {
-                //data.body.items.map(function(x) { console.log(x.name); });
                 callback(null, data.body.items);
             }, function(err) {
                 console.log('Something went wrong with getting artists!', err);
@@ -75,9 +73,9 @@ spotify_token.single_token_lookup = function(code, final_callback) {
 //});
 
 // code to test
-var code1 = 'BQDk9jF0jVi9LCx3v1-pPYRlmLPlwmFGdQAQsZPy8gbzadFfBV8Ls_bDWl8EpcOqwc6Yk9IMv0O4iiUQt-JIl-I8ycALAVhb-rLwzVrPKX5O8l0jKDiqBs3nJFL0TMM2cTvtc7GKti3E4fDw32OMzGYW9o10ug6KSQsDvQX549O7IFcwkw';
+var code1 = 'BQBp751DwweJwo3OqZ3CEqq7LTutzsOCuoradS8jvDxktrY7_UhvRpmjvX37i_9zlDuWdtDluRXTdSGS3T0eLaNyJHIOwtWibKDrlHT-4Gxp0XQkq5nKQKVA5Ygrc8JghnCprHWzQpmB0ZRDgVJoukA0e9x1xoNWvR0-hYR5Ol_RtNvZ5A';
 
-var code2 = 'BQD27UvnUs4rtOdAUnCKO8AKJGqRAy5esx2nhvC1EgoLmA6LEIjGXIPZDMwe9H-2VwaCCllK9phUm1zvz18eE7Uxj94nzBrpXZCnwZwLxEn4wNWdkrR_pOujyS-n04PCnvzNzNCAnlz5jSld3kDUtrWccQgjYQWZTCHCjmIj9sYwx2Bo_A';
+var code2 = 'BQBY9satDwmlwIvtsN51N5jLJgZXlXIhFYwRUzx4KvYZ0eNvVvR3A9LVwkksjMrDyjs1q7AMFMjhMuMXKHuYnCmHhCEcZcaSv2GVWPAY4a6H9pasz3jJDQa115IocWgGtQdkPp47539WsGZEkR0MmeW__y5loC6bregjIV0C8dqNjFXffw';
 
 spotify_token.multi_token_lookup(code1, code2, function(err, res) {
     if (err) { throw(err); }
