@@ -73,11 +73,11 @@ spotify_token.single_token_lookup = function(code, final_callback) {
 //});
 
 // code to test
-var code1 = 'BQBp751DwweJwo3OqZ3CEqq7LTutzsOCuoradS8jvDxktrY7_UhvRpmjvX37i_9zlDuWdtDluRXTdSGS3T0eLaNyJHIOwtWibKDrlHT-4Gxp0XQkq5nKQKVA5Ygrc8JghnCprHWzQpmB0ZRDgVJoukA0e9x1xoNWvR0-hYR5Ol_RtNvZ5A';
-
-var code2 = 'BQBY9satDwmlwIvtsN51N5jLJgZXlXIhFYwRUzx4KvYZ0eNvVvR3A9LVwkksjMrDyjs1q7AMFMjhMuMXKHuYnCmHhCEcZcaSv2GVWPAY4a6H9pasz3jJDQa115IocWgGtQdkPp47539WsGZEkR0MmeW__y5loC6bregjIV0C8dqNjFXffw';
-
-spotify_token.multi_token_lookup(code1, code2, function(err, res) {
-    if (err) { throw(err); }
-    console.log(res);
-});
+//var code1 = 'BQBp751DwweJwo3OqZ3CEqq7LTutzsOCuoradS8jvDxktrY7_UhvRpmjvX37i_9zlDuWdtDluRXTdSGS3T0eLaNyJHIOwtWibKDrlHT-4Gxp0XQkq5nKQKVA5Ygrc8JghnCprHWzQpmB0ZRDgVJoukA0e9x1xoNWvR0-hYR5Ol_RtNvZ5A';
+//
+//var code2 = 'BQBY9satDwmlwIvtsN51N5jLJgZXlXIhFYwRUzx4KvYZ0eNvVvR3A9LVwkksjMrDyjs1q7AMFMjhMuMXKHuYnCmHhCEcZcaSv2GVWPAY4a6H9pasz3jJDQa115IocWgGtQdkPp47539WsGZEkR0MmeW__y5loC6bregjIV0C8dqNjFXffw';
+//
+//spotify_token.multi_token_lookup(code1, code2, function(err, res) {
+//    if (err) { throw(err); }
+//    console.log(res);
+//});
