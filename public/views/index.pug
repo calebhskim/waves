@@ -15,10 +15,6 @@ html(lang="en")
                     a.login#login1.waves-effect.waves-light(href="/login") Log In with Spotify
                     #loggedin1
                         #oauth
-                    ol.top 
-                        li#num1.artists Kanye West
-                        li#num2.artists Drake
-                        li#num3.artists Kendrick Lamar
 
                 .user#user2
                     img#img2(src="img/empty.png")
@@ -136,11 +132,6 @@ html(lang="en")
                                     $(".test").fadeIn();
                                     $(".test").one("click", function() {
 
-                                    	console.log("data")
-                                        $("#num1").text(data[1][0].name);
-                                        $("#num2").text(data[1][1].name);
-                                        $("#num3").text(data[1][2].name);
-
                                         $(this).addClass("test-clicked");
                                         setTimeout(function() {
                                           $(".test").text("your results").fadeIn();
@@ -180,7 +171,7 @@ html(lang="en")
                                         bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
                                         bar.text.style.fontSize = '8rem';
 
-                                        bar.animate(data[0]);  // Number from 0.0 to 1.0
+                                        bar.animate(data["percent"]);  // Number from 0.0 to 1.0
                                         // end progress bar
 
 
