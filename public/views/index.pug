@@ -124,10 +124,10 @@ html(lang="en")
                                 }
                             });
                             $('#login2').hide();
-                            $.get( "http://0.0.0.0:3000/percent", 
+                            $.get( "http://0.0.0.0:3000/match", 
                                 {token1 : tokens['client1'], token2 : tokens['client2']}, 
                                 function( data ) {
-                                    console.log("Percent");
+                                    console.log("Match Results");
                                     console.log(data);
                                     $(".test").fadeIn();
                                     $(".test").one("click", function() {

@@ -1,11 +1,13 @@
-var jsonfile = require('jsonfile');
+//var jsonfile = require('jsonfile');
 var match = module.exports = {};
-var spotify_connect = require('./spotify_connect');
+var spcred = require('./spotify_cred');
+var async = require('async');
 
-l_tracks = jsonfile.readFileSync('lukas_tracks.json');
-l_artists = jsonfile.readFileSync('lukas_artists.json');
-c_tracks = jsonfile.readFileSync('caleb_tracks.json');
-c_artists = jsonfile.readFileSync('caleb_artists.json');
+
+//l_tracks = jsonfile.readFileSync('lukas_tracks.json');
+//l_artists = jsonfile.readFileSync('lukas_artists.json');
+//c_tracks = jsonfile.readFileSync('caleb_tracks.json');
+//c_artists = jsonfile.readFileSync('caleb_artists.json');
 
 freq_count = function(arr) {
     hash = {};
@@ -70,9 +72,6 @@ match.match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
         }
     }
 
-    console.log("he");
-
-
     //checks for corners
     var track_points = 0, artist_points = 0;
 
@@ -109,16 +108,30 @@ match.match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
         }
     } 
 
-    spotify_connect.related_artists(p1_artist, p2_artist, function(err, res) {
+    related_artists(p1_artist, p2_artist, function(err, res) {
+        if (err) callback(err);
+
         related_intersect_length = Math.max(Math.min(res[0].length, res[1].length), 1);
         related_intersect = res[0].filter(function(n) {
             return res[1].indexOf(n) != -1;
         });
 
-        var compatibility = (common_tracks.length/p1_track.length)*(0.25) + track_points*(0.05) + 
-            (common_artists.length/p1_artist.length)*(0.25) + artist_points*(0.05) +
-            (related_intersect.length / related_intersect_length)*(0.07) + 
-            (genre_overall / genre_under)*(0.33);
+        var common_track_res = common_tracks.length/p1_track.length;
+        var common_artists_res = common_artists.length/p1_artist.length;
+        var related_res = related_intersect.length / related_intersect_length;
+        var genre_res = genre_overall / genre_under;
+        console.log("match results:");
+        console.log("common tracks:", common_track_res); 
+        console.log("track points:", related_res); 
+        console.log("common artists:", common_artists_res); 
+        console.log("artist points:", related_res); 
+        console.log("related artists:", related_res); 
+        console.log("related artists:", related_res); 
+
+        var compatibility = (common_track_res)*(0.25) + track_points*(0.05) + 
+            (common_artists_res)*(0.25) + artist_points*(0.05) +
+            (related_res)*(0.07) + 
+            (genre_res)*(0.33);
 
 		
 		var top3_artists = [];
@@ -126,38 +139,58 @@ match.match = function(p1_track, p1_artist, p2_track, p2_artist, callback) {
 			top3_artists.push(common_artists[i]);
 		}
 
-        console.log(top3_artists);
+        setTimeout(
+            getArtists(top3_artists,
+                    function(data) {
+                        var artists_with_imgs = data.body.artists.map(function(x) { return {"name":x.name, "image": x.images[0].url}; });
+                        callback(null, {"percent":compatibility, "common_artists":artists_with_imgs}); 
+                    }, function(err) {
+                        console.log("failed");
+                        console.error(err);
+                        callback(err);
+                    }),
+            1000);
 
-		spotify_connect.getArtists(top3_artists,
-				function(data) {
-					var artists_with_imgs = data.body.artists.map(function(x) { return {"name":x.name, "image": x.images[0].url}; });
-
-					callback(null, [compatibility, artists_with_imgs]); 
-				}, function(err) {
-					console.log("failed");
-					console.error(err);
-					callback(err);
-				});
 	});
 };
 
+getArtists = function(artists, success, fail) {
+    spcred.spotifyApi.getArtists(artists)
+      .then(success, fail); 
+};
 
-// testing!
-//should return 1
-l_tracks = jsonfile.readFileSync('test_track1.json');
-l_artists = jsonfile.readFileSync('test_artist1.json');
-c_tracks = jsonfile.readFileSync('test_track2.json');
-c_artists = jsonfile.readFileSync('test_artist2.json');
+function uniq(a) {
+    return a.sort().filter(function(item, pos, ary) {
+        return !pos || item != ary[pos - 1];
+    });
+}
 
-//match.match(l_tracks, l_artists, c_tracks, c_artists, function(res) {
-//    console.log(res);
-//});
+related_artists = function(p1_artists, p2_artists, callback) {
+    async.mapSeries([p1_artists, p2_artists], function(item1, map1_callback) {
+        async.mapSeries(item1, function(item2, map2_callback) {
+            spcred.spotifyApi.getArtistRelatedArtists(item2.id).then(function(data) {
+                var top5 = [];
+                for (var i = 0; i < 5 && i < data.body.artists.length; i++) {
+                    top5.push(data.body.artists[i]);
+                }
 
-l_tracks = jsonfile.readFileSync('lukas_tracks.json');
-l_artists = jsonfile.readFileSync('lukas_artists.json');
-c_tracks = jsonfile.readFileSync('caleb_tracks.json');
-c_artists = jsonfile.readFileSync('caleb_artists.json');
+                map2_callback(null, top5.map(function(x) { return x.id; }));
+            }, function(err) {
+                map2_callback(err);
+            });
+        }, function(err, res) {
+            if (err) map1_callback(err);
 
-//match.match(l_tracks, l_artists, c_tracks, c_artists, function(err, res) {
-//    console.log(res);
-//});
+            flat = [].concat.apply([], res);
+
+
+            uniqueArray = uniq(flat.concat(item1.map(function(x) { return x.id; })));
+
+            map1_callback(null, uniqueArray);
+        });
+    }, function(err, result) {
+        if (err) callback(err);
+
+        callback(null, result);
+    });
+};

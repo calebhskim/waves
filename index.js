@@ -3,7 +3,7 @@ var parser = require('body-parser');
 var request = require('request');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
-var spcon = require('./spotify_connect');
+var spcon = require('./spotify_token');
 
 var client_id = '2fba170ea0a347e5b4a745949bb47e8f';
 var client_secret = 'c31edf15faaa4df789de7586d955855d';
@@ -183,18 +183,21 @@ app.get('/token', function (req, res) {
    }
 });
 
-app.get('/percent', function (req, res) {
-   console.log("Tokens to query");
-   console.log(req.query);
-   spcon.multi_token_lookup(req.query.token1.token, req.query.token2.token, function (n, r) {
-      console.log("percentage");
-      console.log(r);
-      res.send({"percent": r});
-   });
+app.get('/match', function (req, res) {
+    console.log("Tokens to query");
+    console.log(req.query);
+    spcon.multi_token_lookup(req.query.token1.token, req.query.token2.token, function (n, r) {
+        if (n) {
+            console.log(n);
+        }
+        console.log("match results");
+        console.log(r);
+        res.send(r);
+    });
 });
 
 var server = app.listen(3000, function() {
-    var host = server.address().address
-    var port = server.address().port
-    console.log("Waves app listening at http://%s:%s", host, port)
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log("Waves app listening at http://%s:%s", host, port);
 });
