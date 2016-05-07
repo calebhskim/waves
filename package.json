@@ -1,0 +1,40 @@
+{
+  "name": "waves",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "async": "^1.5.2",
+    "chai": "^3.5.0",
+    "jsonfile": "^2.3.0",
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "materialize-css": "^0.97.6",
+    "pug": "^2.0.0-alpha6",
+    "progressbar.js": "^1.0.1",
+    "query-string": "^4.1.0",
+    "cookie-parser": "^1.4.1",
+    "request": "^2.72.0",
+    "spotify-web-api-node": "^2.3.0",
+    "querystring": "^0.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/calebhskim/waves.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/calebhskim/waves/issues"
+  },
+  "homepage": "https://github.com/calebhskim/waves#readme"
+}
