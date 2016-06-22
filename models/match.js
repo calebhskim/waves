@@ -1,6 +1,6 @@
 //var jsonfile = require('jsonfile');
 var match = module.exports = {};
-var spcred = require('./spotify_cred');
+var spcred = require('../middlewares/spotify_cred');
 var async = require('async');
 
 
