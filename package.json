@@ -7,17 +7,25 @@
     "test": "test"
   },
   "dependencies": {
+    "async": "^1.5.2",
+    "chai": "^3.5.0",
+    "jsonfile": "^2.3.0",
+    "express": "^4.13.4",
+    "materialize-css": "^0.97.6",
+    "progressbar.js": "^1.0.1",
+    "query-string": "^4.1.0",
+    "request": "^2.72.0",
+    "spotify-web-api-node": "^2.3.0",
+    "querystring": "^0.2.0",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
-    "express": "^4.14.0",
-    "jsonfile": "^2.3.0",
-    "pug": "^2.0.0-beta3",
-    "request": "^2.72.0",
-    "spotify-web-api-node": "^2.3.0"
+    "pug": "^2.0.0-beta3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  },
   "scripts": {
-    "test": "test"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
