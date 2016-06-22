@@ -3,7 +3,7 @@ var parser = require('body-parser');
 var request = require('request');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
-var spcon = require('./spotify_token');
+var spcon = require('./middlewares/spotify_token');
 
 var client_id = '2fba170ea0a347e5b4a745949bb47e8f';
 var client_secret = 'c31edf15faaa4df789de7586d955855d';
