@@ -1,5 +1,5 @@
 var async = require('async');
-var match = require('./match');
+var match = require('../models/match');
 var spcred = require('./spotify_cred');
 var spotify_token = module.exports = {};
 
